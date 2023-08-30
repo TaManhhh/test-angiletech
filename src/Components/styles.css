@@ -1,0 +1,48 @@
+.prev,
+.next {
+  cursor: pointer;
+  z-index: 30;
+  position: absolute;
+  width: auto;
+  padding: 2rem;
+}
+
+.prev:hover,
+.next:hover {
+  transform: scale(1.1);
+  transition: all 0.2s ease-in;
+}
+
+.next {
+  right: 0;
+}
+
+.prev {
+  left: 0;
+}
+.inactive {
+  display: none;
+}
+.slider {
+  position: relative;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #ccc;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.activePagination.dot {
+  background-color: #9c69e2;
+}
