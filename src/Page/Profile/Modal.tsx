@@ -11,7 +11,6 @@ const Modal = ({
   setEditData,
   setOpen,
 }) => {
-  console.log("🚀 ~ file: Modal.tsx:7 ~ Modal ~ editData:", editData);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [tags, setTags] = useState<string[]>([]);

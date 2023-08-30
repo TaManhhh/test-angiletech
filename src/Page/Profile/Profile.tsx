@@ -137,13 +137,13 @@ const Profile = () => {
                   </td>
                   <td className=" border border-[#000] p-2 w-[90px]">
                     <button
-                      className="w-[30px] h-[30px] "
+                      className="w-[30px] h-[30px] custom-button "
                       onClick={() => handleEditClick(item)}
                     >
                       <img src={edit} alt="" />
                     </button>
                     <button
-                      className="w-[30px] h-[30px]"
+                      className="w-[30px] h-[30px] custom-button"
                       onClick={() => onDelete(item.id)}
                     >
                       <img src={del} alt="" />

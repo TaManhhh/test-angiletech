@@ -37,7 +37,6 @@ const SignIn = () => {
         };
         dispatch(setTokens(tokens)); 
         navigate("/")
-        console.log(res.accessToken);
       } else {
         console.log("Failed");
       }

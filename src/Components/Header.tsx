@@ -12,8 +12,7 @@ const Header = () => {
   const navbarRef = useRef<HTMLDivElement | null>(null);
   const [cookies, , removeCookie] = useCookies(["token"]);
   const dispatch = useDispatch();
-  // const accessToken = useSelector((state: any) => state.auth.accessToken);
-  // console.log("🚀 ~ file: Header.tsx:14 ~ Header ~ accessToken:", accessToken)
+
   const navigate = useNavigate();
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
