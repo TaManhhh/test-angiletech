@@ -1,8 +1,8 @@
 import React from "react";
-import PropTypes from "prop-types";
+import "./styles.css"
 const Button = ({ children, className, style, ...props }:any) => {
   return (
-    <button className={`bg-[#9C69E2] text-[#fff] py-[10px] rounded-[50px] ${className}`} style={style} {...props}>
+    <button className={`bg-[#9C69E2] text-[#fff] py-[10px] custom-button rounded-[50px] ${className}`} style={style} {...props}>
       {children}
     </button>
   );

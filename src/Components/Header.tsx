@@ -1,13 +1,20 @@
 import React, { useRef, useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.svg";
 import Button from "./Button";
 import menu from "../assets/menu.png";
+import { useCookies } from "react-cookie";
+import { useDispatch, useSelector } from "react-redux";
+import { Delete, Post } from "../Service/service";
+import { clearTokens } from "../redux/userSlice";
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(true);
-  const [navbar, setNavbar] = useState(false);
   const navbarRef = useRef<HTMLDivElement | null>(null);
-
+  const [cookies, , removeCookie] = useCookies(["token"]);
+  const dispatch = useDispatch();
+  // const accessToken = useSelector((state: any) => state.auth.accessToken);
+  // console.log("🚀 ~ file: Header.tsx:14 ~ Header ~ accessToken:", accessToken)
+  const navigate = useNavigate();
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (
@@ -28,16 +35,50 @@ const Header = () => {
   function handleMenuToggle() {
     setIsMenuOpen(!isMenuOpen);
   }
+  const clickProfile = () => {
+    navigate("/profile");
+  };
+  const clickSignin = () => {
+    navigate("/signin");
+  };
+  const handleLogout = async () => {
+    try {
+      const obj = {
+        url: "https://test-react.agiletech.vn/auth/logout",
+        token: cookies.token,
+      };
+      await Delete(obj);
+      dispatch(clearTokens());
+      removeCookie("token");
+      navigate("/signin");
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
+  };
+  
   return (
     <div>
       <div className="flex justify-between z-[90] items-center w-full h-[100px]">
         <Link to={"/"} className=" order-2 lg:order-1">
           <img src={logo} alt="logo" className="w-[66px] h-[40px]" />
         </Link>
-        <div className="gap-5 lg:flex hidden order-2">
-          <Button className="lg:px-[50px] px-[25px]">Profile</Button>
-          <Button className=" lg:px-[50px] px-[25px]"> Logout</Button>
-        </div>
+        {cookies.token ? (
+          <div className="gap-5 lg:flex hidden order-2">
+            <Button className="lg:px-[50px] px-[25px]" onClick={clickProfile}>
+              Profile
+            </Button>
+            <Button className=" lg:px-[50px] px-[25px]" onClick={handleLogout}>
+              Logout
+            </Button>
+          </div>
+        ) : (
+          <div>
+            <Button className="lg:px-[50px] px-[25px]" onClick={clickSignin}>
+              Signin
+            </Button>
+          </div>
+        )}
+
         <button
           className="lg:hidden  order-1 lg:order-3"
           id="mobile-menu-button"
@@ -57,16 +98,24 @@ const Header = () => {
             <img src={logo} alt="logo" className="w-[66px] h-[40px]" />
           </Link>
         </div>
-        <ul className="p-5 divide-y bg-[#D9D9D9;] text-[20px] leading-[160%] ">
-          <li>
-            <Link to="/" className="block  py-2">
-              Posts
-            </Link>
-          </li>
-          <li>
-            <div className="block  py-2">Logout</div>
-          </li>
-        </ul>
+        {cookies.token ? (
+          <ul className="p-5 divide-y bg-[#D9D9D9;] text-[20px] leading-[160%] ">
+            <li>
+              <Link to="/profile" className="block  py-2">
+                Posts
+              </Link>
+            </li>
+            <li>
+              <div className="block  py-2" onClick={handleLogout}>
+                Logout
+              </div>
+            </li>
+          </ul>
+        ) : (
+          <Link to="/signin" className="block  py-2">
+            Signin
+          </Link>
+        )}
       </div>
     </div>
   );

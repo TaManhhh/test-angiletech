@@ -8,16 +8,16 @@ type Props = {
   body?: any;
 };
 
-export const Get = async ({url, token, params, headers}: Props) => {
+export const Get = async ({ url, token, params, headers }: Props) => {
   let config = {};
   if (token) {
     config = {
-      headers: {...headers, Authorization: "Bearer " + token},
+      headers: { ...headers, Authorization: "Bearer " + token },
       params,
     };
   } else {
     config = {
-      headers: {...headers},
+      headers: { ...headers },
       params,
     };
   }
@@ -29,16 +29,16 @@ export const Get = async ({url, token, params, headers}: Props) => {
   }
 };
 
-export const Post = async ({url, token, body, headers, params}: Props) => {
+export const Post = async ({ url, token, body, headers, params }: Props) => {
   let config = {};
   if (token) {
     config = {
-      headers: {...headers, Authorization: "Bearer " + token},
+      headers: { ...headers, Authorization: "Bearer " + token },
       params,
     };
   } else {
     config = {
-      headers: {...headers},
+      headers: { ...headers },
       params,
     };
   }
@@ -49,9 +49,9 @@ export const Post = async ({url, token, body, headers, params}: Props) => {
   }
 };
 
-export const Put = async ({url, token, body, headers, params}: Props) => {
+export const Put = async ({ url, token, body, headers, params }: Props) => {
   const config = {
-    headers: {...headers, Authorization: "Bearer " + token},
+    headers: { ...headers, Authorization: "Bearer " + token },
     params,
   };
   try {
@@ -61,13 +61,24 @@ export const Put = async ({url, token, body, headers, params}: Props) => {
   }
 };
 
-export const Delete = async ({url, token, params, headers}: Props) => {
+export const Delete = async ({ url, token, params, headers }: Props) => {
   const config = {
-    headers: {...headers, Authorization: "Bearer " + token},
+    headers: { ...headers, Authorization: "Bearer " + token },
     params,
   };
   try {
     return (await axios.delete(url, config)).data;
+  } catch (error) {
+    return null;
+  }
+};
+export const Patch = async ({ url, token, body, headers, params }: Props) => {
+  const config = {
+    headers: { ...headers, Authorization: "Bearer " + token },
+    params,
+  };
+  try {
+    return (await axios.patch(url, body, config)).data;
   } catch (error) {
     return null;
   }

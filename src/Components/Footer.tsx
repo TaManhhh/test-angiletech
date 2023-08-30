@@ -4,7 +4,7 @@ import logo from "../assets/logo.svg";
 import mess from "../assets/mess.svg"
 const Footer = () => {
   return (
-    <div className="footer">
+    <div className="footer pb-12">
       <div className=" grid lg:grid-cols-5 gap-3 grid-cols-2 pb-4 text-[#212353] text-[16px]">
         <div className=" lg:col-span-2 ">
           <div className="block lg:flex justify-center lg:justify-start items-center gap-4">

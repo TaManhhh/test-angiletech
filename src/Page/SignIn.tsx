@@ -5,10 +5,15 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { Post } from "../Service/service";
 import { setTokens } from "../redux/userSlice";
+import { useCookies } from "react-cookie";
+import axios from "axios";
 const SignIn = () => {
   const [username, setUsername] = useState("");
+  const [cookies, setCookie] = useCookies(["token"]);
   const [errorMessage, setErrorMessage] = useState("");
   const dispatch = useDispatch();
+  const navigate = useNavigate ()
+  
   const handleSubmit = async () => {
     if (!username) {
       setErrorMessage("Please enter your username"); 
@@ -24,12 +29,15 @@ const SignIn = () => {
     try {
       const res = await Post(obj);
       if ( res.accessToken) {
+        setCookie("token", res.accessToken);
+        axios.defaults.headers.common['Authorization'] = `Bearer ${res.accessToken}`
         const tokens = {
           accessToken: res.accessToken,
           refreshToken: res.refreshToken,
         };
         dispatch(setTokens(tokens)); 
-        console.log("Logged in successfully");
+        navigate("/")
+        console.log(res.accessToken);
       } else {
         console.log("Failed");
       }

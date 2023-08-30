@@ -33,13 +33,13 @@ const Testimonials = () => {
   const len = imageSlider.length - 1;
   const [activeIndex, setActiveIndex] = useState(0);
   return (
-    <div className="mt-[100px]">
-      <div className="bg-[#9C69E2] relative rounded-[50px] h-[75vh] px-[95px] flex  justify-center items-center ">
+    <div className="my-[140px]">
+      <div className="bg-[#9C69E2] relative rounded-[50px] h-[75vh] px-[95px] flex flex-col justify-center items-center ">
         <div>
-          <p className="mb-[100px] text-[#fff] text-[40px] font-bold">
+          <p className="mb-[60px] text-[#fff] text-[40px] font-bold">
             Testimonials
           </p>
-          <div className="slider-container">
+          <div className="slider-container ">
             <Slider
               activeIndex={activeIndex}
               imageSlider={imageSlider}
@@ -55,6 +55,15 @@ const Testimonials = () => {
             }
           />
         </div>
+        <div className="pagination w-full h-3 ">
+        {imageSlider.map((_, index) => (
+          <span
+            key={index}
+            className={index === activeIndex ? "dot activePagination" : "dot"}
+            onClick={() => setActiveIndex(index)}
+          ></span>
+        ))}
+      </div>
       </div>
     </div>
   );

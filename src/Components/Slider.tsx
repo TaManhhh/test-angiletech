@@ -8,7 +8,7 @@ function Slider({ activeIndex, imageSlider ,setActiveIndex}) {
           key={index}
           className={index === activeIndex ? "slides active" : "inactive"}
         >
-          <div className="w-full h-full flex justify-center items-center">
+          <div className="w-full h-full flex justify-center items-center shadow">
             <div className="flex w-[70%]">
               <div className=" ">
                 <img className=" w-full object-cover" src={slide.img} alt="" />
@@ -29,15 +29,7 @@ function Slider({ activeIndex, imageSlider ,setActiveIndex}) {
           </div>
         </div>
       ))}
-      <div className="pagination w-full h-3 bg-black">
-        {imageSlider.map((_, index) => (
-          <span
-            key={index}
-            className={index === activeIndex ? "dot activePagination" : "dot"}
-            onClick={() => setActiveIndex(index)}
-          ></span>
-        ))}
-      </div>
+      
     </section>
   );
 }
