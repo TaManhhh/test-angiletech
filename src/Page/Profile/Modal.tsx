@@ -72,11 +72,12 @@ const Modal = ({
       <div className="modal">
         <h2>{editData ? "Edit Post" : "Add New Post"}</h2>
         <div className=" mt-[20px]">
-          <p>Title</p>
+          <p>Title *</p>
           <input
             className="w-full p-4 rounded-md  border border-[#000] h-[50px]"
             placeholder="Title"
             value={title}
+            required
             onChange={(e) => setTitle(e.target.value)}
           />
           {errorTitle && <p className="text-red-500">{errorTitle}</p>}
@@ -91,12 +92,12 @@ const Modal = ({
             onChange={(selectedOptions) =>
               setTags(selectedOptions.map((option) => option.value))
             }
-            className="basic-multi-select "
+            className="basic-multi-select border border-[#000] rounded-md"
             classNamePrefix="select "
           />
         </div>
         <div className="mt-[20px]">
-          <p>Description</p>
+          <p>Description *</p>
           <textarea
             className="w-full  p-4 rounded-md  border border-[#000] "
             placeholder="Description"
