@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Delete, Post } from "../Service/service";
 import { clearTokens } from "../redux/userSlice";
 const Header = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(true);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navbarRef = useRef<HTMLDivElement | null>(null);
   const [cookies, , removeCookie] = useCookies(["token"]);
   const dispatch = useDispatch();
@@ -71,7 +71,7 @@ const Header = () => {
             </Button>
           </div>
         ) : (
-          <div>
+          <div className="order-2 lg:block hidden">
             <Button className="lg:px-[50px] px-[25px]" onClick={clickSignin}>
               Signin
             </Button>
@@ -111,7 +111,7 @@ const Header = () => {
             </li>
           </ul>
         ) : (
-          <Link to="/signin" className="block  py-2">
+          <Link to="/signin" className="block p-7 ">
             Signin
           </Link>
         )}

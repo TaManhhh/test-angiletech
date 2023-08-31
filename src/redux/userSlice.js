@@ -1,16 +1,7 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { refreshAccessToken } from '../RefreshToken/RefreshToken';
-export const refreshAccessTokenAsync = createAsyncThunk(
-  "auth/refreshAccessToken",
-  async (refreshToken, thunkAPI) => {
-    try {
-      const newAccessToken = await refreshAccessToken(refreshToken);
-      return newAccessToken;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error);
-    }
-  }
-);
+import { createSlice } from '@reduxjs/toolkit';
+
+
+
 const userSlice = createSlice({
   name: 'auth',
   initialState: {
@@ -26,11 +17,6 @@ const userSlice = createSlice({
       state.accessToken = null;
       state.refreshToken = null;
     },
-  },
-  extraReducers: (builder) => {
-    builder.addCase(refreshAccessTokenAsync.fulfilled, (state, action) => {
-      state.accessToken = action.payload;
-    });
   },
 });
 

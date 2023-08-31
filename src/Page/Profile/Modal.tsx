@@ -10,25 +10,40 @@ const Modal = ({
   editData,
   setEditData,
   setOpen,
+
 }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [tags, setTags] = useState<string[]>([]);
   const [cookies] = useCookies(["token"]);
-
+  const [errorTitle, setErrorTitle] = useState("");
+  const [errorDescription, setErrorDescription] = useState("");
   useEffect(() => {
     if (editData) {
       setTitle(editData.title);
       setTags(editData.tags);
       setDescription(editData.description);
-    } else {
-      setTitle("");
-      setTags([]);
-      setDescription("");
-    }
+    } 
   }, [editData]);
 
+
   const handleSubmit = async () => {
+    let hasError = false;
+    if (!title) {
+      setErrorTitle("Please enter title");
+      hasError = true;
+    } else {
+      setErrorTitle("");
+    }
+    if (!description) {
+      setErrorDescription("Please enter description");
+      hasError = true;
+    } else {
+      setErrorDescription("");
+    }
+    if (hasError) {
+      return;
+    }
     const data = {
       title: title,
       description: description,
@@ -48,6 +63,10 @@ const Modal = ({
       setOpen(false);
     }
   };
+  const handleClose = () => {
+    setEditData(null);
+    setOpen(false)
+  };
   return (
     <div className="modal-overlay">
       <div className="modal">
@@ -60,6 +79,7 @@ const Modal = ({
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
+          {errorTitle && <p className="text-red-500">{errorTitle}</p>}
         </div>
         <div className="mt-[20px]">
           <p>Tags</p>
@@ -84,11 +104,14 @@ const Modal = ({
             rows={10}
             onChange={(e) => setDescription(e.target.value)}
           />
+          {errorDescription && (
+            <p className="text-red-500">{errorDescription}</p>
+          )}
         </div>
 
         <div className="modal-buttons gap-4">
           <Button
-            onClick={() => setOpen(false)}
+            onClick={handleClose}
             className="px-[30px]"
             style={{
               backgroundColor: "#fff",

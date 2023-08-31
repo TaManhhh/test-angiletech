@@ -17,6 +17,7 @@ const Profile = () => {
   const [editData, setEditData] = useState(null);
   const [title, setTitle] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState({});
   const [cookies] = useCookies(["token"]);
   const handleOpenModal = () => {
     setShowModal(true);
@@ -37,6 +38,7 @@ const Profile = () => {
     const res = await Get(obj);
     if (res.posts) {
       setData(res.posts);
+      setTotalPages(res.total_page);
     }
   };
 
