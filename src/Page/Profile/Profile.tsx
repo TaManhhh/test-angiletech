@@ -74,8 +74,10 @@ const Profile = () => {
     setShowModal(true);
   };
   const handlePageChange = (newPage) => {
-    setCurrentPage(newPage);
-    getData(title, newPage);
+    if (newPage >= 1 && newPage <= totalPages) {
+      setCurrentPage(newPage);
+      getData(title, newPage);
+    }
   };
 
   return (
@@ -157,23 +159,28 @@ const Profile = () => {
           </tbody>
         </table>
         <div className="pagination flex justify-end gap-4">
-          <Button
-            className="px-[20px]"
-            onClick={() => handlePageChange(currentPage - 1)}
-            disabled={currentPage === 1}
-          >
-            &#10094;
-          </Button>
+          {currentPage > 1 && (
+            <Button
+              className="px-[20px]"
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              &#10094;
+            </Button>
+          )}
+
           <span className="font-bold text-[20px] w-[50px] h-[50px] bg-white border border-[#9C69E2] flex justify-center items-center rounded-full">
             {currentPage}
           </span>
-          <Button
-            className="px-[20px]"
-            onClick={() => handlePageChange(currentPage + 1)}
-            disabled={data?.length === 0}
-          >
-            &#10095;
-          </Button>
+          {currentPage !== totalPages && (
+            <Button
+              className="px-[20px]"
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+            >
+              &#10095;
+            </Button>
+          )}
         </div>
       </div>
       {showModal && (
