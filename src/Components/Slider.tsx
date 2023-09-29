@@ -2,18 +2,17 @@ import React from "react";
 import "./styles.css"
 function Slider({ activeIndex, imageSlider ,setActiveIndex}) {
   return (
-    <section>
+    <section className="flex">
       {imageSlider.map((slide, index) => (
         <div
-          key={index}
-          className={index === activeIndex ? "slides active" : "inactive"}
+          key={index} style={{width:'100%'}}
+          className={index === activeIndex ? "slides active" : " inactive"}
         >
           <div className="w-full h-full flex justify-center items-center shadow">
             <div className="flex w-[70%]">
               <div className=" ">
                 <img className=" w-full object-cover" src={slide.img} alt="" />
               </div>
-
               <div className=" w-[60%] ml-[45px] mt-[20px]">
                 <p className="text-[#212353] text-[18px] font-black">
                   {slide.name}

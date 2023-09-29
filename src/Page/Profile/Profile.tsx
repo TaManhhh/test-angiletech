@@ -137,7 +137,7 @@ const Profile = () => {
                     {item.description}
                   </td>
                   <td className=" border border-[#000] p-2">
-                    {item?.tags?.join(", ")}
+                  {Array.isArray(item?.tags) ? item?.tags.join(', ') : ''}
                   </td>
                   <td className=" border border-[#000] p-2 w-[90px]">
                     <button
